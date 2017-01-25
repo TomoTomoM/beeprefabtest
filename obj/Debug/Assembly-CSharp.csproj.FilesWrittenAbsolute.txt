@@ -32,3 +32,7 @@
 /Users/tomohiromaeda/Desktop/beeprefabtest-master/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/tomohiromaeda/Desktop/beeprefabtest-master/obj/Debug/Assembly-CSharp.dll
 /Users/tomohiromaeda/Desktop/beeprefabtest-master/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/tomohiromaeda/Desktop/beeprefabtest/obj/Debug/Assembly-CSharp.dll
+/Users/tomohiromaeda/Desktop/beeprefabtest/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/tomohiromaeda/Desktop/beeprefabtest/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/tomohiromaeda/Desktop/beeprefabtest/Temp/bin/Debug/Assembly-CSharp.dll

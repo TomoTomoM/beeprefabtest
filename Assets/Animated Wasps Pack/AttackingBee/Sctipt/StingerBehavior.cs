@@ -7,6 +7,7 @@ public class StingerBehavior : MonoBehaviour {
 	//public Transform controllerPointer;
 	public float speed ;
 	public Vector3 playerHoldingOffset;
+	public BeeBehavior1 beeScript;
 	//public float shootingSpeed = 1000.0f;
 
 	//public Vector3 pointer;
@@ -126,7 +127,9 @@ public class StingerBehavior : MonoBehaviour {
 		{
 			if (stingerState == 4) {
 				print ("Bee shooted");
-				other.gameObject.SetActive (false);
+				//other.gameObject.SetActive (false);
+				beeScript = other.gameObject.GetComponent<BeeBehavior1>();
+				beeScript.shooted = true;
 			}
 		}
 		if (other.gameObject.CompareTag("Stinger")){

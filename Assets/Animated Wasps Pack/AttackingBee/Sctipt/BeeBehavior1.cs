@@ -6,14 +6,14 @@ using System.Collections;
 public class BeeBehavior1 : MonoBehaviour {
 
 	public GameObject stinger;
-
-
 	public float speed;
 	public float localXRange;
 	public float localYRange;
 	public Animator anim;
 	public float stingerInterval;
+	public bool shooted = false;
 
+	private GameObject StingerPoint;
 	private GameObject Player;
 	private Transform player;
 	private Vector3 firstPosition;
@@ -23,7 +23,7 @@ public class BeeBehavior1 : MonoBehaviour {
 	private float deltaX;
 	private float deltaY;
 	private float deltaZ;
-
+	private bool dead = false;
 //	private float maxLocalX;
 //	private float minLocalX;
 //	private float maxLocalY;
@@ -32,32 +32,42 @@ public class BeeBehavior1 : MonoBehaviour {
 	private float animTimeTracker = 0f;
 
 	private bool stingerShooted = false;
-	private int stingerCounter = 0;
 
-	public Vector3 stingerOffset = new Vector3(0.1f,0.0f,0.4f);
+
+//	public Vector3 stingerOffset = new Vector3(0.1f,0.0f,0.4f);
 
 	// Use this for initialization
 	void Start () {
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		player = Player.transform; //player is just transform of game object "Player"
+		StingerPoint = GameObject.FindGameObjectWithTag("BeeSting");
 		firstPosition = transform.localPosition;
 		LookAtPlayer (); //face the player
 		//define the area the bee can move
-		DefineMovingRange();
 		anim = GetComponent<Animator> ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		deltaTime += Time.deltaTime;
-		animTimeTracker += Time.deltaTime;
-		GetXYDisplacement ();
-		transform.Translate(deltaX, deltaY, 0);
-		LookAtPlayer ();
-		transform.Rotate (0, 10, 0);
-		ShootStinger ();
-		StartCoroutine ("CreateStinger");
-		stingerShooted = false;
+		if (shooted == false) {
+			deltaTime += Time.deltaTime;
+			animTimeTracker += Time.deltaTime;
+			GetXYDisplacement ();
+			transform.Translate (deltaX, deltaY, 0);
+			LookAtPlayer ();
+			transform.Rotate (0, 10, 0);
+			ShootStinger ();
+			StartCoroutine ("CreateStinger");
+			stingerShooted = false;
+
+		}else{
+			anim.Play("Death1");
+			StartCoroutine ("KillBee");
+			if (dead)
+			{
+				transform.position = Vector3.MoveTowards (transform.position, new Vector3(transform.position.x,0,transform.position.z) , 0.05f); //fall down
+			}
+		}
 	}
 
 	void LookAtPlayer(){
@@ -65,15 +75,6 @@ public class BeeBehavior1 : MonoBehaviour {
 		{
 			transform.LookAt(player);
 		}
-	}
-
-	void DefineMovingRange(){
-//		maxLocalX = transform.localPosition.x + localXRange / 2.0f;
-//		minLocalX = transform.localPosition.x - localXRange / 2.0f;
-//		maxLocalY = transform.localPosition.y + localYRange / 2.0f;
-//		minLocalY = transform.localPosition.y - localYRange / 2.0f;
-//		print (maxLocalX);
-//		print (minLocalX);
 	}
 
 	void GetXYDisplacement(){
@@ -90,32 +91,6 @@ public class BeeBehavior1 : MonoBehaviour {
 			deltaY = -deltaY;
 			deltaZ = -deltaZ;
 		}
-
-//		if (transform.localPosition.x > maxLocalX) {
-//			deltaX = Random.Range (speed, 0.0f); //not -speed because +x direction of bee is -x direction of the player
-//			deltaTime = 0.0f;
-//			print ("hit x max");
-//		}
-//		if (transform.localPosition.x < minLocalX) {
-//			deltaX = Random.Range (-speed, 0.0f);	//not +speed because -x direction of bee is +x direction of the player
-//			deltaTime = 0.0f;
-//			print ("hit x min");
-//		}
-//		if (transform.localPosition.y > maxLocalY) {
-//			deltaY = Random.Range (-speed*0.5f, 0.0f);
-//			deltaTime = 0.0f;
-//			print("hit y max");
-//		}
-//		if (transform.localPosition.y < minLocalY) {
-//			deltaY = Random.Range (speed*0.5f, 0.0f);
-//			deltaTime = 0.0f;
-//			print ("change direction");
-//		}
-//		if (deltaTime > 3.0f) {
-//			deltaX = Random.Range (-speed, speed);
-//			deltaY = Random.Range (-speed*0.5f, speed);
-//			deltaTime = 0.0f;
-//		}
 	}
 		
 	void ShootStinger(){
@@ -126,14 +101,20 @@ public class BeeBehavior1 : MonoBehaviour {
 			animTimeTracker = 0.0f;
 		}
 	}
-		
 
 	IEnumerator CreateStinger (){
 		if (stingerShooted == true) {
 			yield return new WaitForSeconds (0.3f);
-			Instantiate (stinger, transform.position + stingerOffset, transform.rotation);
+			Instantiate (stinger, StingerPoint.transform.position, transform.rotation);
 		}
 	}
 
+	IEnumerator KillBee (){
+		yield return new WaitForSeconds (0.6f);
+		dead = true;
+		yield return new WaitForSeconds (1.4f);
+		anim.Stop ();
+		gameObject.SetActiveRecursively(false);
+	}
 
 }
