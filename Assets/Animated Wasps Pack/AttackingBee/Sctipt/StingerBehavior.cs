@@ -130,6 +130,9 @@ public class StingerBehavior : MonoBehaviour {
 				//other.gameObject.SetActive (false);
 				beeScript = other.gameObject.GetComponent<BeeBehavior1>();
 				beeScript.shooted = true;
+				Rigidbody rb = other.GetComponent<Rigidbody> ();
+				Vector3 movement = shootingDestination - transform.position;
+				rb.AddForce (movement * 500.0f);
 			}
 		}
 		if (other.gameObject.CompareTag("Stinger")){

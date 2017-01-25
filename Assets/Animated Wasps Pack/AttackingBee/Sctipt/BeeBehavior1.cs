@@ -6,6 +6,7 @@ using System.Collections;
 public class BeeBehavior1 : MonoBehaviour {
 
 	public GameObject stinger;
+	public GameObject newBee;
 	public float speed;
 	public float localXRange;
 	public float localYRange;
@@ -13,6 +14,8 @@ public class BeeBehavior1 : MonoBehaviour {
 	public float stingerInterval;
 	public bool shooted = false;
 
+	private Vector3 newBeePosition;
+	private Quaternion newBeeRotation;
 	private GameObject StingerPoint;
 	private GameObject Player;
 	private Transform player;
@@ -99,6 +102,8 @@ public class BeeBehavior1 : MonoBehaviour {
 			stingerShooted = true;
 			print ("shoot stinger");
 			animTimeTracker = 0.0f;
+			newBeePosition = transform.position;
+			newBeeRotation = transform.rotation;
 		}
 	}
 
@@ -114,6 +119,7 @@ public class BeeBehavior1 : MonoBehaviour {
 		dead = true;
 		yield return new WaitForSeconds (1.4f);
 		anim.Stop ();
+		Instantiate (newBee, newBeePosition, newBeeRotation);
 		gameObject.SetActiveRecursively(false);
 	}
 
