@@ -87,13 +87,11 @@ public class StingerBehavior : MonoBehaviour {
 	}
 	void holdingUpdate(){
 		transform.position = player.transform.position + playerHoldingOffset; //fix position of the stinger near the player. 
-		transform.LookAt(pointer.transform.position );
-		//bee should be replaced by controller pointer
-		transform.Rotate (90, 0, 0);
-				if (Input.GetKeyDown("3")){
-					shootingDestination = 2*pointer.transform.position-transform.position;
-					stingerState = 4;
-				}
+		LookAtPointer();
+			if (Input.GetKeyDown("3")){
+				shootingDestination = 2*pointer.transform.position-transform.position;
+				stingerState = 4;
+			}
 	}
 	void shootingUpdate(){
 		//use add force instead
@@ -113,7 +111,14 @@ public class StingerBehavior : MonoBehaviour {
 		if(player != null)
 		{
 			transform.LookAt(player.transform); 
-			transform.Rotate (90, 0, 0);
+			transform.Rotate (180, 0, 0);
+		}
+	}
+
+	void LookAtPointer(){
+		if (pointer != null) {
+			transform.LookAt (pointer.transform);
+			transform.Rotate (180, 0, 0);
 		}
 	}
 

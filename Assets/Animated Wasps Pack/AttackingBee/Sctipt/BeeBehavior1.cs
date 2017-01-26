@@ -15,17 +15,11 @@ public class BeeBehavior1 : MonoBehaviour {
 	private GameObject Player;
 	private Transform player;
 	private Vector3 firstPosition;
-//	private float firstX;
-//	private float firstY;
-//	private float firstZ;
+
 	private float deltaX;
 	private float deltaY;
 	private float deltaZ;
 	private bool dead = false;
-//	private float maxLocalX;
-//	private float minLocalX;
-//	private float maxLocalY;
-//	private float minLocalY;
 	private float deltaTime = 0f;
 	private float animTimeTracker = 0f;
 
