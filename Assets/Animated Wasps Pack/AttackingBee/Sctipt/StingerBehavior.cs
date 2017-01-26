@@ -47,6 +47,9 @@ public class StingerBehavior : MonoBehaviour {
 		if (stingerState == 4) {
 			shootingUpdate ();
 		}
+		if (stingerState == 5) {
+			collidedUpdate ();
+		}
 	}
 
 
@@ -97,6 +100,9 @@ public class StingerBehavior : MonoBehaviour {
 		//print ("shooted");
 		Destroy(this.gameObject,1);
 	}
+	void collidedUpdate(){
+		
+	}
 
 
 
@@ -125,7 +131,7 @@ public class StingerBehavior : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("Bee"))
 		{
-			if (stingerState == 4) {
+			if (stingerState == 4 || stingerState ==5) {
 				print ("Bee shooted");
 				//other.gameObject.SetActive (false);
 				beeScript = other.gameObject.GetComponent<BeeBehavior1>();
@@ -137,7 +143,6 @@ public class StingerBehavior : MonoBehaviour {
 		}
 		if (other.gameObject.CompareTag("Stinger")){
 			
-			Destroy(other.gameObject,1.0f);
 			Destroy(this.gameObject, 1.0f);
 		}
 	}

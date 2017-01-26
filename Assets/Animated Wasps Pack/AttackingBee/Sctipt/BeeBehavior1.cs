@@ -119,7 +119,6 @@ public class BeeBehavior1 : MonoBehaviour {
 		dead = true;
 		yield return new WaitForSeconds (1.4f);
 		anim.Stop ();
-		Instantiate (newBee, newBeePosition, newBeeRotation);
 		gameObject.SetActiveRecursively(false);
 	}
 
