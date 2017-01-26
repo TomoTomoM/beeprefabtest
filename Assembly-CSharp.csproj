@@ -47,6 +47,8 @@
   <ItemGroup>
      <Compile Include="Assets\Animated Wasps Pack\AttackingBee\Sctipt\BeeBehavior1.cs" />
      <Compile Include="Assets\Animated Wasps Pack\AttackingBee\Sctipt\StingerBehavior.cs" />
+     <Compile Include="Assets\ExplosionBehavior.cs" />
+     <Compile Include="Assets\ExplosionControl.cs" />
      <Compile Include="Assets\GoogleVR\Demos\Scripts\DemoInputManager.cs" />
      <Compile Include="Assets\GoogleVR\Demos\Scripts\GVRDemo\Teleport.cs" />
      <Compile Include="Assets\GoogleVR\Demos\Scripts\PermissionsDemo\PermissionsFlowManager.cs" />

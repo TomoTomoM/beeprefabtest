@@ -8,6 +8,7 @@ public class StingerBehavior : MonoBehaviour {
 	public float speed ;
 	public Vector3 playerHoldingOffset;
 	public BeeBehavior1 beeScript;
+	public GameObject explosion;
 	//public float shootingSpeed = 1000.0f;
 
 	//public Vector3 pointer;
@@ -18,15 +19,16 @@ public class StingerBehavior : MonoBehaviour {
 	//private Rigidbody rb;
 	//private GameObject controllerPointer;
 
-	private int stingerState = 0; //0:coming, 1:getting 2:holding, 2:shooting
+	public int stingerState = 0; //0:coming, 1:getting 2:holding, 2:shooting
 
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody>();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		pointer = GameObject.FindGameObjectWithTag ("ControllerPointer");
+		transform.parent = player.transform;
 		//controllerPointer = GameObject.FindGameObjectWithTag ("ControllerPointer");
-		transform.parent = player.transform; //set transform parent to the player so that stinger does not move with bee
+		 //set transform parent to the playr so that stinger does not move with bee
 		LookAtPlayer ();
 	}
 
@@ -48,7 +50,8 @@ public class StingerBehavior : MonoBehaviour {
 			shootingUpdate ();
 		}
 		if (stingerState == 5) {
-			collidedUpdate ();
+			Instantiate (explosion, transform.position, transform.rotation);
+			Destroy (this.gameObject);
 		}
 	}
 
@@ -56,7 +59,7 @@ public class StingerBehavior : MonoBehaviour {
 	void comingUpdate(){
 		float step = speed * Time.deltaTime;
 		transform.position = Vector3.MoveTowards (transform.position, player.transform.position, step); //move stinger to the player with constant speed
-			if (Input.GetKeyDown("1")){
+		if (Input.GetKeyDown("1")){
 				stingerState = 1;
 			}
 		if (Vector3.Distance(player.transform.position,transform.position) < 0.1f){
@@ -122,7 +125,7 @@ public class StingerBehavior : MonoBehaviour {
 		if (stingerState == 1) {
 			stingerState = 0;
 		} else {
-			shootingDestination = 2*pointer.transform.position-transform.position;
+			shootingDestination = 5*pointer.transform.position-4*transform.position;
 			stingerState = 4;
 		}
 	}
@@ -131,20 +134,20 @@ public class StingerBehavior : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("Bee"))
 		{
-			if (stingerState == 4 || stingerState ==5) {
+			if (stingerState == 4 ) {
 				print ("Bee shooted");
 				//other.gameObject.SetActive (false);
 				beeScript = other.gameObject.GetComponent<BeeBehavior1>();
 				beeScript.shooted = true;
 				Rigidbody rb = other.GetComponent<Rigidbody> ();
 				Vector3 movement = shootingDestination - transform.position;
-				rb.AddForce (movement * 500.0f);
+				rb.AddForce (movement * 300.0f);
 			}
 		}
 		if (other.gameObject.CompareTag("Stinger")){
-			
-			Destroy(this.gameObject, 1.0f);
+			StingerBehavior stingerScript = other.GetComponent<StingerBehavior> ();
+			stingerScript.stingerState = 5;
 		}
 	}
-
+		
 }

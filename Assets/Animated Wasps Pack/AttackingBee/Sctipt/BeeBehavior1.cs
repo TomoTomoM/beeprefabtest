@@ -6,17 +6,12 @@ using System.Collections;
 public class BeeBehavior1 : MonoBehaviour {
 
 	public GameObject stinger;
-	public GameObject newBee;
 	public float speed;
-	public float localXRange;
-	public float localYRange;
 	public Animator anim;
 	public float stingerInterval;
 	public bool shooted = false;
+	public Transform StingerPoint;
 
-	private Vector3 newBeePosition;
-	private Quaternion newBeeRotation;
-	private GameObject StingerPoint;
 	private GameObject Player;
 	private Transform player;
 	private Vector3 firstPosition;
@@ -43,7 +38,6 @@ public class BeeBehavior1 : MonoBehaviour {
 	void Start () {
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		player = Player.transform; //player is just transform of game object "Player"
-		StingerPoint = GameObject.FindGameObjectWithTag("BeeSting");
 		firstPosition = transform.localPosition;
 		LookAtPlayer (); //face the player
 		//define the area the bee can move
@@ -68,7 +62,7 @@ public class BeeBehavior1 : MonoBehaviour {
 			StartCoroutine ("KillBee");
 			if (dead)
 			{
-				transform.position = Vector3.MoveTowards (transform.position, new Vector3(transform.position.x,0,transform.position.z) , 0.05f); //fall down
+				transform.position = Vector3.MoveTowards (transform.position, new Vector3(transform.position.x,-10,transform.position.z) , 0.5f); //fall down
 			}
 		}
 	}
@@ -89,7 +83,7 @@ public class BeeBehavior1 : MonoBehaviour {
 			deltaTime = 0.0f;
 		}	
 		// if bee is far from its starting position, change direction
-		if (Vector3.Distance (firstPosition, transform.position) > 1) {
+		if (Vector3.Distance (firstPosition, transform.position) > 2) {
 			deltaX = -deltaX;
 			deltaY = -deltaY;
 			deltaZ = -deltaZ;
@@ -102,15 +96,13 @@ public class BeeBehavior1 : MonoBehaviour {
 			stingerShooted = true;
 			print ("shoot stinger");
 			animTimeTracker = 0.0f;
-			newBeePosition = transform.position;
-			newBeeRotation = transform.rotation;
 		}
 	}
 
 	IEnumerator CreateStinger (){
 		if (stingerShooted == true) {
 			yield return new WaitForSeconds (0.3f);
-			Instantiate (stinger, StingerPoint.transform.position, transform.rotation);
+			Instantiate (stinger, StingerPoint.position, transform.rotation);
 		}
 	}
 
