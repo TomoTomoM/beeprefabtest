@@ -139,6 +139,8 @@
      <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
      <Compile Include="Assets\Magnito Bee\Script\PlayerBehavior.cs" />
      <Compile Include="Assets\Magnito Bee\Script\StartButton.cs" />
+     <Compile Include="Assets\panexports\HealthAndEnergyScript.cs" />
+     <Compile Include="Assets\panexports\PanController.cs" />
      <None Include="Assets\GoogleVR\Distortion\GvrDistortion.cginc" />
      <None Include="Assets\GoogleVR\Demos\Shaders\VideoDemo\VideoDemoInsideShader.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />

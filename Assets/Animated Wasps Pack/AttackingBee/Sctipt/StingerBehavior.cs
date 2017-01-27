@@ -8,7 +8,9 @@ public class StingerBehavior : MonoBehaviour {
 	public float speed ;
 	public Vector3 playerHoldingOffset;
 	public BeeBehavior1 beeScript;
+	public HealthAndEnergyScript healthscript;
 	public GameObject explosion;
+	public GameObject healthScreenScript;
 	//public float shootingSpeed = 1000.0f;
 
 	//public Vector3 pointer;
@@ -24,6 +26,7 @@ public class StingerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody>();
+		healthscript = GameObject.Find("HealthEnergyCanvas").GetComponent<HealthAndEnergyScript>();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		pointer = GameObject.FindGameObjectWithTag ("ControllerPointer");
 		transform.parent = player.transform;
@@ -64,6 +67,7 @@ public class StingerBehavior : MonoBehaviour {
 			}
 		if (Vector3.Distance(player.transform.position,transform.position) < 0.1f){
 			print("Stinger Destroyed");
+			healthscript.removeLifePoint ();
 			Destroy(this.gameObject);
 		}
 	}
@@ -150,6 +154,7 @@ public class StingerBehavior : MonoBehaviour {
 			}
 		}
 		if (other.gameObject.CompareTag("Stinger")){
+			print ("Stinger collide");
 			StingerBehavior stingerScript = other.GetComponent<StingerBehavior> ();
 			stingerScript.stingerState = 5;
 		}
