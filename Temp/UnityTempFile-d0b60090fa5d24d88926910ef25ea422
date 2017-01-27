@@ -97,7 +97,7 @@
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_DUCK_TYPING
 -define:UNITY_HAS_GOOGLEVR
-'Assets/Editor/NewBehaviourScript.cs'
+'Assets/Editor/CreateCone.cs'
 'Assets/GoogleVR/Demos/Editor/DemoInputManagerEditor.cs'
 'Assets/GoogleVR/Editor/GvrAudioListenerEditor.cs'
 'Assets/GoogleVR/Editor/GvrAudioRoomEditor.cs'

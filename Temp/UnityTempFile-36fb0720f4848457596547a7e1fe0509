@@ -177,5 +177,6 @@
 'Assets/GoogleVR/Scripts/Utilities/GvrFPS.cs'
 'Assets/GoogleVR/Scripts/Utilities/GvrIntent.cs'
 'Assets/GoogleVR/Scripts/Video/GvrVideoPlayerTexture.cs'
+'Assets/Magnito Bee/StartButton.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Xml.Linq.dll'
